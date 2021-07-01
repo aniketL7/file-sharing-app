@@ -2,11 +2,18 @@ const express = require("express");
 const DB = require("./config/db");
 const ejs = require("ejs");
 const path = require("path");
+const cors = require("cors");
 
 require("dotenv").config();
 
 const app = express();
 DB();
+
+const corsOptions = {
+  origin: process.env.ALLOWED_CLIENTS.split(","),
+};
+
+app.use(cors(corsOptions));
 
 //template engine
 app.set("views", path.join(__dirname, "/views"));
